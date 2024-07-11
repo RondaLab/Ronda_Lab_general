@@ -14,11 +14,11 @@ This document is made to provide instructions to use following codes in a comman
 ## What do the codes do?
 
 ### 1. xlsx_to_csv.py
-**xlsx_to_csv.py** is a Python code used to convert recorded data from plate readers in a time course into a .csv file that only collects the readings but exclude all machine settings saved in an Excel file. \n
+**xlsx_to_csv.py** is a Python code used to convert recorded data from plate readers in a time course into a .csv file that only collects the readings but exclude all machine settings saved in an Excel file. \
 *The converted .csv file will be saved at the same folder as that of the input .xlsx file*
 
 ### 2. plotting.py
-**plotting.py** is a Python code used to plot growth curves from a .csv dataset. The code provides options to plot growth curves separatedly or average values with errorbars (defined by stdev). You can either save plots separatedly by experiment conditions or save one graph holding all plots generated. \n
+**plotting.py** is a Python code used to plot growth curves from a .csv dataset. The code provides options to plot growth curves separatedly or average values with errorbars (defined by stdev). You can either save plots separatedly by experiment conditions or save one graph holding all plots generated. \
 *The plots will be saved in a new folder under $base_path$; additional folders for separated files will be created to help better organize the output.*
 
 ## Before using the codes, you need to know:
@@ -33,9 +33,9 @@ This document is made to provide instructions to use following codes in a comman
 
 ### 2. Open Terminal.app (for Macbook users), or any shell environment (e.g.: GitBash)
 
-### 3. [Optional] Redirect your working directory (wd) to the folder files indicated in step one are saved. \n
-   [Trick] For Macbook users, you can directly open terminal under the desired folder by tapping at the folder in Finder and selecting 'New Terminal at Folder' \n
-   [Note] It is better to redirect your wd to the desired folder so that you will not need to type in the directories repeatedly later \n
+### 3. [Optional] Redirect your working directory (wd) to the folder files indicated in step one are saved. \
+   [Trick] For Macbook users, you can directly open terminal under the desired folder by tapping at the folder in Finder and selecting 'New Terminal at Folder' \
+   [Note] It is better to redirect your wd to the desired folder so that you will not need to type in the directories repeatedly later \
 
 ### 4. In command line, type in the commands
 
