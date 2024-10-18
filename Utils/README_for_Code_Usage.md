@@ -42,26 +42,40 @@ This document is made to provide instructions to use following codes in a comman
 ```bash
 python3 xlsx_to_csv.py \
 --input_file_name [PATH to .xlsx file] \
---base_path [PATH to where your files are saved] \ # Optional. Default is the current working directory of the Terminal
+--base_path [PATH to where your files are saved] \ # Optional. Default is the current working directory of the Terminal.
 --condition_file [PATH to .txt file saving your condition list] \
---sheet_name [NAME of the SHEET you want to convert] \ # Since .csv file cannot have multiple sheets, this progarmme converts one sheet per run
---row_skip [Number of rows to skip] \ # Optional. Default value is 61, last row number before your data records start in .xlsx file.
---t_interval [Time interval between measurements in MINUTES] \
---total_hr [Total time of your measurements in HOUR] \
+--sheet_name [NAME of the SHEET you want to convert] \ # Since .csv files cannot have multiple sheets, this program converts one sheet per run.
+--measurements [List of signal channels] \ # E.g., 'OD600', 'RFP'. You can specify multiple channels.
+--output_files [List of custom file names for saving each signal channel] \ # Optional. If not provided, the program will save using default names based on the measurements.
 --rep [Number of replicates in your experiment] \ # Optional. Default value is 3.
 --start_col [LETTER of the first column label] \ # Optional. Default is D.
---output_file_name [PATH to .csv file] \ # Optional. Default is df.csv under the base_path.
 ```
 
-Examples:
+### Parameters:
+- **`--input_file_name`**: Path to the input Excel (.xlsx) file.
+- **`--base_path`**: Path where output files will be saved. Optional, default is the current directory.
+- **`--condition_file`**: Path to the text file containing your condition list.
+- **`--sheet_name`**: The name of the Excel sheet you want to convert.
+- **`--measurements`**: List of signal channels to extract (e.g., "OD600", "RFP"). You can specify multiple measurements.
+- **`--output_files`**: (Optional) Custom file names for each measurement channel. If not provided, the script will use default names based on the measurement.
+- **`--rep`**: (Optional) Number of replicates. Default is 3.
+- **`--start_col`**: (Optional) Starting column label. Default is 'D'.
+
+### Examples:
 
 ```bash
-python3 xlsx_to_csv.py --input_file_name Book1.xlsx --condition_file conditions.txt --sheet_name 'Plate 1 - Sheet1' --t_interval 15 --total_hr 30
+# Example 1: Extract OD600 and RFP data, using default file names
+python3 xlsx_to_csv.py --input_file_name Book1.xlsx --condition_file conditions.txt --sheet_name 'Plate 1 - Sheet1' --measurements "OD600" "RFP"
 ```
 
 ```bash
-python3 ~/Desktop/xlsx_to_csv.py --input_file_name Book1.xlsx --base_path ~/Desktop/data --condition_file conditions.txt --sheet_name 'Sheet1' -- row_skip 61 --t_interval 15 --total_hr 30 --rep 3 --start_col D --output_file_name df.csv
+# Example 2: Extract data and save with custom file names
+python3 xlsx_to_csv.py --input_file_name Book1.xlsx --base_path ~/Desktop/data --condition_file conditions.txt --sheet_name 'Sheet1' --measurements "OD600" "RFP" --output_files "od600_data.csv" "rfp_data.csv" --rep 3 --start_col D
 ```
+
+This updated instruction covers the new features:
+- **Flexible signal channel selection** (`--measurements`).
+- **Optional custom output filenames** (`--output_files`).
 
 ## B. How to use plotting.py
 
