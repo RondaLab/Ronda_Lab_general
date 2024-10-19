@@ -94,18 +94,30 @@ python3 plotting.py \
 --base_path [PATH to where your files are saved] \ # Optional. Default is the current working directory of the Terminal
 --condition_file [PATH to .txt file saving your condition list] \
 --data_file [PATH to .csv file recording your measurements] \
---t_interval [Time interval between measurements in MINUTES] \ 
+--t_interval [Time interval between measurements in MINUTES] \
 --rep [Number of replicates in your experiment] \ # Optional. Default value is 3.
---plot_option [Plot your timecourse with error bars or as separated curves] \ # Plot option: 'errorbar' or 'curves'
---save_option [Keep your plots separately or organize them in one graph (currently only available for 20 plots in 4 x 5 layout, still updating)]\ #Save option: 'separate' for multiple files by conditions or 'all' for all plots in one graph.
+--plot_option [Choose how to plot your timecourse: error bars, separate curves, or averages] \ # Plot option: 'errorbar', 'curves', or 'average'
+--save_option [Keep your plots separately or organize them in one graph (supports any number of plots with optimal layout)]\ # Save option: 'separate' for multiple files by conditions or 'all' for all plots in one graph.
+--y_lim [Y-axis limits for your plot (e.g., 0 1.5)] \ # Required. Set the Y-axis range for your plots.
+--y_scale [Y-axis scale: linear or logarithmic] \ # Optional. Default is 'linear'.
+--y_label [Label for the Y-axis] \ # Required. Set the Y-axis label for your plot.
+--plot_filename_base [Custom base name for saving your plot files] \ # Optional. Default name based on plot option.
 ```
 
-Examples:
+### Example Commands:
 
 ```bash
-python3 plotting.py --condition_file conditions.txt --data_file df.csv --time_interval 15 --plot_option curves --save_option all
+python3 plotting.py --condition_file conditions.txt --data_file df.csv --t_interval 15 --plot_option curves --save_option all --y_lim 0 1.5 --y_label 'OD'
 ```
 
 ```bash
-python3 ~/Desktop/plotting.py --base_path ~/Desktop/data --condition_file conditions.txt --data_file df.csv --time_interval 15 --rep 3 --plot_option curves --save_option all
+python3 ~/Desktop/plotting.py --base_path ~/Desktop/data --condition_file conditions.txt --data_file df.csv --t_interval 15 --rep 3 --plot_option errorbar --save_option all --y_lim 0 1.5 --y_scale log --y_label 'OD' --plot_filename_base 'MyCustomPlot'
 ```
+
+### Changes from the older version:
+
+1. **Plot options:** In addition to `errorbar` and `curves`, you can now choose the `average` option to plot only the average values.
+2. **Y-axis settings:** You must specify the y-axis limits (`--y_lim`), and you can choose between a linear or logarithmic scale (`--y_scale`).
+3. **Y-axis label:** The y-axis label is now customizable via the `--y_label` argument.
+4. **Custom plot filenames:** You can set a custom base name for the plot files using the `--plot_filename_base` argument.
+5. **Flexible subplot layout:** The script now supports any number of plots, and it automatically arranges the subplots in an optimal layout.
