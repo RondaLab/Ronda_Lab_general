@@ -48,7 +48,7 @@ def plot_data(times, data_avg, data_std, data, conditions, plots_dir, rep, plot_
             plt.yscale(y_scale)  # Set the y-axis scale (linear or log)
 
             plt.title(format_title(condition))  # Use the formatted two-row title
-            plt.xlabel('time [min]')
+            plt.xlabel('time [hr]')
             plt.ylabel(y_label)  # Dynamic y-axis label
             
             plt.grid(False)
@@ -84,7 +84,7 @@ def plot_data(times, data_avg, data_std, data, conditions, plots_dir, rep, plot_
             ax.set_yscale(y_scale)  # Set the y-axis scale (linear or log)
             
             ax.set_title(format_title(condition))  # Use the formatted two-row title
-            ax.set_xlabel('time [min]')
+            ax.set_xlabel('time [hr]')
             ax.set_ylabel(y_label)  # Dynamic y-axis label
             
             ax.grid(False)
@@ -121,7 +121,7 @@ def main():
     condition_path = os.path.join(base_path, args.condition_file)
     data_file_path = os.path.join(base_path, args.data_file)
     rep = args.rep
-    t_interval = args.t_interval
+    t_interval = args.t_interval/60
     plot_option = args.plot_option
     save_option = args.save_option
     y_lim = args.y_lim  # Dynamic y-axis limits
