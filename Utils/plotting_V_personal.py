@@ -29,23 +29,28 @@ def plot_data(times, data_avg, data_std, data, conditions, plots_dir, rep, plot_
         plot_filename_base = 'Err_bar' if plot_option == 'errorbar' else 'Curves_by_condition' if plot_option == 'curves' else 'Average_by_condition'
     
     negative_control = data_avg[-1]  # Assuming the last condition is Negative Control
-    positive_control = data_avg[0]   # Assuming the first condition is Positive Control
-
+    positive_control = data_avg[7]   # Assuming the first condition is Positive Control
+    
+    filtered_conditions = [cond for i, cond in enumerate(conditions) if i not in {7, 12}]
+    
+    filtered_data_avg = [avg for i, avg in enumerate(data_avg) if i not in {7, 12}]
+    filtered_data_std = [std for i, std in enumerate(data_std) if i not in {7, 12}]
+    
     if save_option == 'separate':
-        for i, condition in enumerate(conditions[1:-1]):  # Exclude controls from conditions loop
+        for i, condition in enumerate(filtered_conditions):  # Exclude controls from conditions loop
             plt.figure(figsize=(6, 4))
-            plt.plot(times, negative_control, 'r-', alpha=0.8, label='Negative Control')
-            plt.plot(times, positive_control, 'g-', alpha=0.8, label='Positive Control')
+            plt.plot(times, negative_control, 'r-', alpha=0.8, label='DH5⍺ + cre Control')
+            plt.plot(times, positive_control, 'g-', alpha=0.8, label='MG1655 Control')
 
             if plot_option == 'errorbar':
-                plt.errorbar(times, data_avg[i+1], yerr=data_std[i+1], color='b', alpha=1, label=condition)
-                plt.fill_between(times, data_avg[i+1]-data_std[i+1], data_avg[i+1]+data_std[i+1], color='b', alpha=0.2)
+                plt.errorbar(times, filtered_data_avg[i], yerr=filtered_data_std[i], color='b', alpha=1, label=condition)
+                plt.fill_between(times, filtered_data_avg[i]-filtered_data_std[i], filtered_data_avg[i]+filtered_data_std[i], color='b', alpha=0.2)
             elif plot_option == 'curves':
                 for j in range(rep):
-                    plt.plot(times, data.iloc[:, (i+1) * rep + j], 'b-', alpha=0.3)
-                plt.plot(times, data_avg[i+1], 'b-', alpha=1, label=condition)
+                    plt.plot(times, data.iloc[:, (i) * rep + j], 'b-', alpha=0.3)
+                plt.plot(times, filtered_data_avg[i], 'b-', alpha=1, label=condition)
             elif plot_option == 'average':
-                plt.plot(times, data_avg[i+1], 'b-', alpha=1, label=condition)
+                plt.plot(times, filtered_data_avg[i], 'b-', alpha=1, label=condition)
 
             plt.xlim(0, max(times))
             plt.ylim(y_lim)
@@ -66,23 +71,23 @@ def plot_data(times, data_avg, data_std, data, conditions, plots_dir, rep, plot_
     
     elif save_option == 'all':
         rows, cols = optimal_subplot_layout(len(conditions) - 2)  # Exclude controls from conditions count
-        fig, axes = plt.subplots(rows, cols, figsize=(cols * 6, rows * 4))
+        fig, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 4))
         axes = axes.flatten()
 
-        for idx, condition in enumerate(conditions[1:-1]):  # Exclude controls from conditions loop
+        for idx, condition in enumerate(filtered_conditions):  # Exclude controls from conditions loop
             ax = axes[idx]
-            ax.plot(times, negative_control, 'r-', alpha=0.8, label='Negative Control')
-            ax.plot(times, positive_control, 'g-', alpha=0.8, label='Positive Control')
+            ax.plot(times, negative_control, 'r-', alpha=0.8, label='DH5⍺ + cre Control')
+            ax.plot(times, positive_control, 'g-', alpha=0.8, label='MG1655 Control')
             
             if plot_option == 'errorbar':
-                ax.errorbar(times, data_avg[idx+1], yerr=data_std[idx+1], color='b', alpha=1, label=condition)
-                ax.fill_between(times, data_avg[idx+1]-data_std[idx+1], data_avg[idx+1]+data_std[idx+1], color='b', alpha=0.2)
+                ax.errorbar(times, filtered_data_avg[idx], yerr=filtered_data_std[idx], color='b', alpha=1, label=condition)
+                ax.fill_between(times, filtered_data_avg[idx]-filtered_data_std[idx], filtered_data_avg[idx]+filtered_data_std[idx], color='b', alpha=0.2)
             elif plot_option == 'curves':
                 for j in range(rep):
-                    ax.plot(times, data.iloc[:, (idx+1) * rep + j], 'b-', alpha=0.3)
-                ax.plot(times, data_avg[idx+1], 'b-', alpha=1, label=condition)
+                    ax.plot(times, data.iloc[:, (idx) * rep + j], 'b-', alpha=0.3)
+                ax.plot(times, filtered_data_avg[idx], 'b-', alpha=1, label=condition)
             elif plot_option == 'average':
-                ax.plot(times, data_avg[idx+1], 'b-', alpha=1, label=condition)
+                ax.plot(times, filtered_data_avg[idx], 'b-', alpha=1, label=condition)
 
             ax.set_xlim(0, max(times))
             ax.set_ylim(y_lim)

@@ -99,7 +99,7 @@ python3 plotting.py \
 --plot_option [Choose how to plot your timecourse: error bars, separate curves, or averages] \ # Plot option: 'errorbar', 'curves', or 'average'
 --save_option [Keep your plots separately or organize them in one graph (supports any number of plots with optimal layout)]\ # Save option: 'separate' for multiple files by conditions or 'all' for all plots in one graph.
 --y_lim [Y-axis limits for your plot (e.g., 0 1.5)] \ # Required. Set the Y-axis range for your plots.
---y_scale [Y-axis scale: linear or logarithmic] \ # Optional. Default is 'linear'.
+--y_scale [Y-axis scale: linear or log] \ # Optional. Default is 'linear'.
 --y_label [Label for the Y-axis] \ # Required. Set the Y-axis label for your plot.
 --plot_filename_base [Custom base name for saving your plot files] \ # Optional. Default name based on plot option.
 ```
